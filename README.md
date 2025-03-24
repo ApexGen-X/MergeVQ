@@ -10,6 +10,6 @@
 
 <sup>1</sup> Zhejiang University &emsp; <sup>2</sup> Tsinghua University &emsp; <sup>3</sup> Westlake University &emsp; <sup>4</sup> The Hong Kong University of Science and Technology &emsp; <sup>5</sup> OPPO AI Center &emsp; <sup>6</sup> CAIR, HKISI-CAS &emsp; <sup>7</sup> Institute of Automation, CASIA &emsp; <sup>8</sup> University of Chinese Academy of Sciences
 
-<sup>*</sup> Equal Contributions. <sup>†</sup> Project Leader. <sup>‡</sup> Corresponding Author.
+<sup>*</sup> Equal Contributions. <sup>†</sup> Corresponding Author.
 
 </div>
