@@ -1,6 +1,6 @@
 <div align="center">
   
-# MergeVQ: A Unified Framework for Visual Generation and Representation with Token Merging and Quantization
+# [CVPR 2025] MergeVQ: A Unified Framework for Visual Generation and Representation with Token Merging and Quantization
 
 ![mergevq_framework](https://github.com/user-attachments/assets/a3e22ba0-6f0d-43bb-bf38-cf628ec1aa41)
 
