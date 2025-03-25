@@ -7,17 +7,18 @@
     <title>MergeVQ: A Unified Framework for Visual Generation and Representation</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.8;
             color: #333;
-            background-color: #fff;
+            background-color: #f9f9f9;
         }
 
         nav {
             background-color: #007BFF;
-            padding: 10px 0;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         nav ul {
@@ -29,54 +30,95 @@
 
         nav ul li {
             display: inline;
-            margin: 0 15px;
+            margin: 0 20px;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #e0e0e0;
         }
 
         header {
             text-align: center;
-            padding: 50px 0;
+            padding: 80px 0;
             background-color: #E9F2FF;
+            background-image: linear-gradient(to bottom, #E9F2FF, #d1e3ff);
+        }
+
+        header h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #555;
         }
 
         section {
-            padding: 40px 10%;
+            padding: 60px 15%;
         }
 
         h2 {
-            border-bottom: 2px solid #007BFF;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            border-bottom: 3px solid #007BFF;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
             color: #007BFF;
+            font-size: 32px;
+        }
+
+        h3 {
+            color: #007BFF;
+            font-size: 24px;
+            margin-bottom: 15px;
         }
 
         img {
             max-width: 100%;
             height: auto;
-            margin: 20px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 30px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         th,
         td {
-            border: 1px solid #ccc;
-            padding: 10px;
+            border: 1px solid #ddd;
+            padding: 15px;
             text-align: left;
         }
 
         th {
-            background-color: #F0F0F0;
+            background-color: #f0f7ff;
             color: #007BFF;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f0f7ff;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -109,39 +151,77 @@
     <!-- 摘要 -->
     <section id="abstract">
         <h2>Abstract</h2>
-        <p>Masked Image Modeling (MIM) with Vector Quantization (VQ) has achieved great success in self-supervised
-            pretraining and image generation. However, most existing methods struggle to address two technical challenges
-            simultaneously. We propose MergeVQ, a unified framework integrating token merging and VQ techniques. It
-            achieves significant performance gains in both visual generation and representation learning while accelerating
-            processes.</p>
+        <p>
+            In the realm of visual tasks, Masked Image Modeling (MIM) combined with Vector Quantization (VQ) has
+            witnessed remarkable achievements in self-supervised pretraining and image generation. However, a significant
+            hurdle persists: most existing methods grapple with simultaneously addressing two critical technical challenges.
+            To surmount these obstacles, we introduce MergeVQ, a groundbreaking unified framework that seamlessly integrates
+            token merging and VQ techniques. This innovative approach not only yields substantial performance gains in both
+            visual generation and representation learning but also accelerates the overall processes, marking a significant
+            advancement in the field.
+        </p>
     </section>
 
     <!-- 介绍 -->
     <section id="introduction">
         <h2>Introduction</h2>
-        <p>Vector Quantization (VQ) has been widely used in visual tasks, but existing methods face challenges. We
-            introduce MergeVQ to address these issues. Representation learning and generation are complementary, and
-            MergeVQ decouples and recovers semantics during encoding and reconstruction.</p>
+        <p>
+            Vector Quantization (VQ) has emerged as a widely adopted technique in visual tasks. Nevertheless, existing
+            methods often encounter challenges that impede their effectiveness. In response, we present MergeVQ, a
+            revolutionary solution designed to overcome these limitations. Our approach recognizes the complementary nature
+            of representation learning and generation, and it leverages this synergy by decoupling and recovering semantics
+            during the encoding and reconstruction processes.
+        </p>
         <img src="https://dummyimage.com/800x600/ff0000/ffffff" alt="MergeVQ learning paradigms">
-        <p>Our contributions include decoupling semantic tokens and source matrix, addressing VQ training challenges, and
-            achieving state-of-the-art performance in both tasks.</p>
+        <p>
+            The contributions of MergeVQ are multifaceted. Firstly, it effectively decouples semantic tokens and the source
+            matrix, enabling a more refined and efficient representation of visual data. Secondly, it addresses the
+            longstanding challenges associated with VQ training, leading to improved stability and performance. Finally,
+            MergeVQ achieves state-of-the-art results in both visual generation and representation learning tasks,
+            demonstrating its superiority over existing methods.
+        </p>
     </section>
 
     <!-- 学习范式 -->
     <section id="learning-paradigm">
         <h2>Learning Paradigm</h2>
         <h3>3.1 MergeVQ Framework</h3>
-        <p>We introduce the MergeVQ framework with token merge encoding, quantization, token recovery, and reconstruction.
+        <p>
+            The MergeVQ framework is a comprehensive solution that encompasses token merge encoding, quantization, token
+            recovery, and reconstruction. Each component plays a crucial role in enabling efficient and effective visual
+            generation and representation learning.
         </p>
-        <p>Token Merge Encoding: Given an image \(X \in\)\(\mathbb{R}^{H ×W ×3}\), we employ a two - stage downsampling encoder
-            \(\varepsilon\). First, a CNN layer \(\varepsilon_{1}\) extracts features, producing a feature map \(Z \in \mathbb{R}^{\frac{H}{f} ×\frac{W}{f} ×d}\), where \(f\) is the downsampling factor and \(d\) denotes the channel number. The feature \(Z\) is then flattened into \(L\) - length token sequence \(Z_{L} \in \mathbb{R}^{L ×d}\) as \(Z_{L}=\mathcal{E}_{1}(X)\). Then we employ attention with the merging operation, denoted as \(\varepsilon_{2}\), for second - stage extraction. During this process, we obtain a shorter sequence \(Z_{K} \in \mathbb{R}^{K ×d}\) along with its source matrix \(S \in \mathbb{R}^{K ×L}\) that preserves the spatial relationships of the sequence. This process is expressed as \(Z_{K}, S=\mathcal{E}_{2}\left(Z_{L}\right)\). As such, the entire encoding process can be represented as \(Z_{K}, S=\mathcal{E}(X)\). To ensure that \(Z_{K}\) possess rich semantics, we concurrently impose global alignment on \(Z_{K}\).</p>
-        <p>Quantization: We employ \(LFQ\) as MergeVQ’s quantization module to minimize the loss of details. Specifically,
-            the codebook is reduced to an integer set and could be denoted as: \(C=\times_{i = 1}^{N}{-1,1}\) \(|C| = 2^{N}\). Thus, the
-            quantization can be summarized as follows: \(z_{K i}=sign(z_{K i})=-1 \cdot \mathbb{I}(z_{K i}<0)+\mathbb{I}(z_{K i}>0)\),where \(z_{K i}\) denotes \(i\) th vector in \(K\) semantic tokens \(Z_{K}\). Then the index of the quantized feature \(z_{m i}\) is formulated as Index \((z_{K i})=\sum_{j = 1}^{N} 2^{k - 1}\cdot\mathbb{I}(z_{K i j}>0)\). Finally, we obtain the quantized semantic tokens, denoted as \(Z_{K q}\): \(Z_{K q}=\mathcal{Q}\left(Z_{K}, \mathcal{C}\right)\).</p>
-        <p>Token Recovery and Reconstruction: we first perform token - level reconstruction with the recovery module \(R(\cdot, \cdot)\) and source matrix \(S\), which yields a new \(L\) - length \(\hat{Z}_{L}\) as \(\hat{Z}_{L}=\mathcal{R}\left(Z_{q K}, S\right)\). This sequence is then fed into the decoder \(D\) for pixel - level reconstruction, which could be described as \(\hat{X}=\mathcal{D}\left(\hat{Z}_{L}\right)\).</p>
+        <p>
+            Token Merge Encoding: Given an image \(X \in \mathbb{R}^{H × W × 3}\), we employ a two - stage downsampling encoder
+            \(\varepsilon\). First, a CNN layer \(\varepsilon_{1}\) extracts features, producing a feature map \(Z \in \mathbb{R}^{\frac{H}{f} × \frac{W}{f} × d}\),
+            where \(f\) is the downsampling factor and \(d\) denotes the channel number. The feature \(Z\) is then flattened
+            into an \(L\) - length token sequence \(Z_{L} \in \mathbb{R}^{L × d}\) as \(Z_{L}=\mathcal{E}_{1}(X)\). Subsequently, we
+            employ attention with the merging operation, denoted as \(\varepsilon_{2}\), for second - stage extraction.
+            During this process, we obtain a shorter sequence \(Z_{K} \in \mathbb{R}^{K × d}\) along with its source matrix
+            \(S \in \mathbb{R}^{K × L}\) that preserves the spatial relationships of the sequence. This process is expressed
+            as \(Z_{K}, S=\mathcal{E}_{2}\left(Z_{L}\right)\). To ensure that \(Z_{K}\) possesses rich semantics, we concurrently
+            impose global alignment on \(Z_{K}\).
+        </p>
+        <p>
+            Quantization: We utilize \(LFQ\) as MergeVQ’s quantization module to minimize the loss of details. Specifically,
+            the codebook is reduced to an integer set and can be denoted as: \(C=\times_{i = 1}^{N}{-1,1}\) with \(|C| = 2^{N}\).
+            Thus, the quantization can be summarized as follows: \(z_{K i}=sign(z_{K i})=-1 \cdot \mathbb{I}(z_{K i}<0)+\mathbb{I}(z_{K i}>0)\),
+            where \(z_{K i}\) denotes the \(i\) - th vector in \(K\) semantic tokens \(Z_{K}\). Then the index of the quantized
+            feature \(z_{m i}\) is formulated as Index \((z_{K i})=\sum_{j = 1}^{N} 2^{k - 1}\cdot\mathbb{I}(z_{K i j}>0)\). Finally,
+            we obtain the quantized semantic tokens, denoted as \(Z_{K q}\): \(Z_{K q}=\mathcal{Q}\left(Z_{K}, \mathcal{C}\right)\).
+        </p>
+        <p>
+            Token Recovery and Reconstruction: We first perform token - level reconstruction with the recovery module \(R(\cdot, \cdot)\)
+            and source matrix \(S\), which yields a new \(L\) - length \(\hat{Z}_{L}\) as \(\hat{Z}_{L}=\mathcal{R}\left(Z_{q K}, S\right)\).
+            This sequence is then fed into the decoder \(D\) for pixel - level reconstruction, which can be described as
+            \(\hat{X}=\mathcal{D}\left(\hat{Z}_{L}\right)\).
+        </p>
         <h3>3.2 Harmonize Reconstruction and Representation</h3>
-        <p>Inspired by Masked Image Modeling in representation learning, we use Token Merge and Source Recovery to
-            integrate representation learning. We also impose global alignment constraints.</p>
+        <p>
+            Inspired by Masked Image Modeling in representation learning, we employ Token Merge and Source Recovery to
+            seamlessly integrate representation learning into the MergeVQ framework. Additionally, we impose global alignment
+            constraints to further enhance the performance and stability of the model.
+        </p>
         <img src="https://dummyimage.com/800x600/00ff00/ffffff" alt="Overview of MergeVQ framework">
     </section>
 
@@ -149,22 +229,39 @@
     <section id="efficient-generation">
         <h2>Efficient Generation</h2>
         <h3>4.1 MergeAR with KV Cache Compression</h3>
-        <p>We introduce MergeAR for efficient autoregressive generation. It leverages token sparsity and a position - recording system to accelerate generation. During training, we sample a merge ratio \(r\), introduce a Merge Instruction Token \(M\), and construct a causal mask. In inference, we use a KV cache to prune repeated tokens.</p>
+        <p>
+            To achieve efficient autoregressive generation, we introduce MergeAR. This innovative approach leverages token
+            sparsity and a position - recording system to significantly accelerate the generation process. During training,
+            we sample a merge ratio \(r\), introduce a Merge Instruction Token \(M\), and construct a causal mask. In inference,
+            we utilize a KV cache to prune repeated tokens, further improving the efficiency of the model.
+        </p>
         <img src="https://dummyimage.com/800x600/0000ff/ffffff" alt="Illustration of MergeAR pipeline">
         <h3>4.2 Randomized Auto - regressive with Source Recovery</h3>
-        <p>MergeVQ can be implemented by the RandAR generative framework. The \(K\) quantized tokens and source matrix are used for training and generation, and we use the source recovery model and decoder to recover tokens.</p>
+        <p>
+            MergeVQ can be effectively implemented using the RandAR generative framework. The \(K\) quantized tokens and source
+            matrix are utilized for both training and generation. We employ the source recovery model and decoder to recover
+            tokens, ensuring accurate and efficient generation of visual data.
+        </p>
     </section>
 
     <!-- 实验 -->
     <section id="experiments">
         <h2>Experiments</h2>
         <h3>5.1 Implementation Details</h3>
-        <p>We offer three MergeVQ versions: MergeVQ (G) for pure generation, MergeVQ (G+R) for both generation and
-            representation, and MergeVQ (R) for representation learning only. The encoders have different architectures and
-            parameters. We use AdamW optimizer and various loss functions for training. The visual generator is based on
-            LlaMA - based architecture and is also trained with specific settings.</p>
+        <p>
+            We offer three distinct versions of MergeVQ to cater to different application scenarios: MergeVQ (G) for pure
+            generation, MergeVQ (G + R) for both generation and representation, and MergeVQ (R) for representation learning
+            only. Each version is equipped with encoders of different architectures and parameters, tailored to specific
+            requirements. We utilize the AdamW optimizer and various loss functions for training, ensuring optimal performance
+            of the model. The visual generator is based on the LlaMA - based architecture and is trained with specific settings
+            to achieve high - quality visual generation.
+        </p>
         <h3>5.2 Self - supervised Pre - training</h3>
-        <p>We evaluated self - supervised pre - trained models by linear probing and end - to - end fine - tuning on ImageNet - 1K. The results are shown in Table 1.</p>
+        <p>
+            To evaluate the performance of self - supervised pre - trained models, we conducted linear probing and end - to - end
+            fine - tuning experiments on ImageNet - 1K. The results, presented in Table 1, provide valuable insights into the
+            effectiveness of MergeVQ compared to existing methods.
+        </p>
         <table>
             <thead>
                 <tr>
@@ -352,7 +449,12 @@
             </tbody>
         </table>
         <h3>5.3 Image Generation</h3>
-        <p>We conducted image generation experiments to evaluate the performance of MergeVQ. We compared it with several state - of - the - art methods in terms of FID and IS scores. The results are shown in Table 2.</p>
+        <p>
+            We conducted comprehensive image generation experiments to assess the performance of MergeVQ. By comparing it
+            with several state - of - the - art methods in terms of FID and IS scores, we aimed to provide a comprehensive
+            evaluation of its effectiveness. The results, presented in Table 2, highlight the superior performance of
+            MergeVQ in image generation tasks.
+        </p>
         <table>
             <thead>
                 <tr>
@@ -406,7 +508,14 @@
     <!-- 结论 -->
     <section id="conclusion">
         <h2>Conclusion</h2>
-        <p>In this paper, we propose MergeVQ, a unified framework that integrates token merging and quantization techniques for visual generation and representation learning. Our experiments on ImageNet demonstrate that MergeVQ can achieve significant performance gains in both self - supervised pre - training and image generation tasks, while also accelerating the processes. Future work may explore more advanced token merging strategies and further optimize the quantization module to enhance the performance of the framework.</p>
+        <p>
+            In summary, this paper presents MergeVQ, a unified framework that seamlessly integrates token merging and
+            quantization techniques for visual generation and representation learning. Our extensive experiments on ImageNet
+            demonstrate that MergeVQ can achieve significant performance gains in both self - supervised pre - training and
+            image generation tasks, while also accelerating the overall processes. Looking ahead, future work may explore
+            more advanced token merging strategies and further optimize the quantization module to enhance the performance
+            of the framework, paving the way for even greater advancements in the field of visual computing.
+        </p>
     </section>
 </body>
 
