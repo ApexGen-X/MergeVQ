@@ -23,6 +23,8 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 40px;
+            margin: 20px 0;
+            border-radius: 8px;
         }
 
         nav {
@@ -30,6 +32,7 @@
             padding: 15px 0;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
+            border-radius: 8px 8px 0 0;
         }
 
         nav ul {
@@ -59,6 +62,7 @@
             padding: 80px 0;
             background-color: #E9F2FF;
             background-image: linear-gradient(to bottom, #E9F2FF, #d1e3ff);
+            border-radius: 0 0 8px 8px;
         }
 
         header h1 {
@@ -131,6 +135,9 @@
             margin-bottom: 20px;
         }
     </style>
+    <!-- 引入 MathJax 库 -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
@@ -183,7 +190,8 @@
                 of representation learning and generation, and it leverages this synergy by decoupling and recovering semantics
                 during the encoding and reconstruction processes.
             </p>
-            <img src="mergevq_intro.jpg" alt="MergeVQ introduction">
+            <!-- 添加mergevq_intro.jpg图片 -->
+            <img src="fig/mergevq_intro.jpg" alt="MergeVQ introduction">
             <p>
                 The contributions of MergeVQ are multifaceted. Firstly, it effectively decouples semantic tokens and the source
                 matrix, enabling a more refined and efficient representation of visual data. Secondly, it addresses the
@@ -203,29 +211,13 @@
                 generation and representation learning.
             </p>
             <p>
-                Token Merge Encoding: Given an image \(X \in \mathbb{R}^{H × W × 3}\), we employ a two - stage downsampling encoder
-                \(\varepsilon\). First, a CNN layer \(\varepsilon_{1}\) extracts features, producing a feature map \(Z \in \mathbb{R}^{\frac{H}{f} × \frac{W}{f} × d}\),
-                where \(f\) is the downsampling factor and \(d\) denotes the channel number. The feature \(Z\) is then flattened
-                into an \(L\) - length token sequence \(Z_{L} \in \mathbb{R}^{L × d}\) as \(Z_{L}=\mathcal{E}_{1}(X)\). Subsequently, we
-                employ attention with the merging operation, denoted as \(\varepsilon_{2}\), for second - stage extraction.
-                During this process, we obtain a shorter sequence \(Z_{K} \in \mathbb{R}^{K × d}\) along with its source matrix
-                \(S \in \mathbb{R}^{K × L}\) that preserves the spatial relationships of the sequence. This process is expressed
-                as \(Z_{K}, S=\mathcal{E}_{2}\left(Z_{L}\right)\). To ensure that \(Z_{K}\) possesses rich semantics, we concurrently
-                impose global alignment on \(Z_{K}\).
+                Token Merge Encoding: Given an image \(X \in \mathbb{R}^{H \times W \times 3}\), we employ a two - stage downsampling encoder \(\varepsilon\). First, a CNN layer \(\varepsilon_{1}\) extracts features, producing a feature map \(Z \in \mathbb{R}^{\frac{H}{f} \times \frac{W}{f} \times d}\), where \(f\) is the downsampling factor and \(d\) denotes the channel number. The feature \(Z\) is then flattened into an \(L\) - length token sequence \(Z_{L} \in \mathbb{R}^{L \times d}\) as \(Z_{L}=\mathcal{E}_{1}(X)\). Subsequently, we employ attention with the merging operation, denoted as \(\varepsilon_{2}\), for second - stage extraction. During this process, we obtain a shorter sequence \(Z_{K} \in \mathbb{R}^{K \times d}\) along with its source matrix \(S \in \mathbb{R}^{K \times L}\) that preserves the spatial relationships of the sequence. This process is expressed as \(Z_{K}, S=\mathcal{E}_{2}(Z_{L})\). To ensure that \(Z_{K}\) possesses rich semantics, we concurrently impose global alignment on \(Z_{K}\).
             </p>
             <p>
-                Quantization: We utilize \(LFQ\) as MergeVQ’s quantization module to minimize the loss of details. Specifically,
-                the codebook is reduced to an integer set and can be denoted as: \(C=\times_{i = 1}^{N}{-1,1}\) with \(|C| = 2^{N}\).
-                Thus, the quantization can be summarized as follows: \(z_{K i}=sign(z_{K i})=-1 \cdot \mathbb{I}(z_{K i}<0)+\mathbb{I}(z_{K i}>0)\),
-                where \(z_{K i}\) denotes the \(i\) - th vector in \(K\) semantic tokens \(Z_{K}\). Then the index of the quantized
-                feature \(z_{m i}\) is formulated as Index \((z_{K i})=\sum_{j = 1}^{N} 2^{k - 1}\cdot\mathbb{I}(z_{K i j}>0)\). Finally,
-                we obtain the quantized semantic tokens, denoted as \(Z_{K q}\): \(Z_{K q}=\mathcal{Q}\left(Z_{K}, \mathcal{C}\right)\).
+                Quantization: We utilize \(LFQ\) as MergeVQ’s quantization module to minimize the loss of details. Specifically, the codebook is reduced to an integer set and can be denoted as: \(C = \times_{i = 1}^{N} \{-1, 1\}\) with \(|C| = 2^{N}\). Thus, the quantization can be summarized as follows: \(z_{K i} = \text{sign}(z_{K i}) = -1 \cdot \mathbb{I}(z_{K i} < 0) + \mathbb{I}(z_{K i} > 0)\), where \(z_{K i}\) denotes the \(i\) - th vector in \(K\) semantic tokens \(Z_{K}\). Then the index of the quantized feature \(z_{m i}\) is formulated as \(\text{Index}(z_{K i}) = \sum_{j = 1}^{N} 2^{k - 1} \cdot \mathbb{I}(z_{K i j} > 0)\). Finally, we obtain the quantized semantic tokens, denoted as \(Z_{K q}\): \(Z_{K q}=\mathcal{Q}(Z_{K}, \mathcal{C})\).
             </p>
             <p>
-                Token Recovery and Reconstruction: We first perform token - level reconstruction with the recovery module \(R(\cdot, \cdot)\)
-                and source matrix \(S\), which yields a new \(L\) - length \(\hat{Z}_{L}\) as \(\hat{Z}_{L}=\mathcal{R}\left(Z_{q K}, S\right)\).
-                This sequence is then fed into the decoder \(D\) for pixel - level reconstruction, which can be described as
-                \(\hat{X}=\mathcal{D}\left(\hat{Z}_{L}\right)\).
+                Token Recovery and Reconstruction: We first perform token - level reconstruction with the recovery module \(R(\cdot, \cdot)\) and source matrix \(S\), which yields a new \(L\) - length \(\hat{Z}_{L}\) as \(\hat{Z}_{L}=\mathcal{R}(Z_{q K}, S)\). This sequence is then fed into the decoder \(D\) for pixel - level reconstruction, which can be described as \(\hat{X}=\mathcal{D}(\hat{Z}_{L})\).
             </p>
             <h3>3.2 Harmonize Reconstruction and Representation</h3>
             <p>
@@ -233,11 +225,12 @@
                 seamlessly integrate representation learning into the MergeVQ framework. Additionally, we impose global alignment
                 constraints to further enhance the performance and stability of the model.
             </p>
+            <!-- 添加fig/mergevq_framework.jpg图片 -->
             <img src="fig/mergevq_framework.jpg" alt="Overview of MergeVQ framework">
         </section>
 
         <!-- 高效生成 -->
-        <section id="efficient-generation">
+        <section id="fig/efficient-generation">
             <h2>Efficient Generation</h2>
             <h3>4.1 MergeAR with KV Cache Compression</h3>
             <p>
@@ -246,7 +239,8 @@
                 we sample a merge ratio \(r\), introduce a Merge Instruction Token \(M\), and construct a causal mask. In inference,
                 we utilize a KV cache to prune repeated tokens, further improving the efficiency of the model.
             </p>
-            <img src="mergeAR_pipeline.jpg" alt="Illustration of MergeAR pipeline">
+            <!-- 添加mergeAR_pipeline.jpg图片 -->
+            <img src="fig/mergeAR_pipeline.jpg" alt="Illustration of MergeAR pipeline">
             <h3>4.2 Randomized Auto - regressive with Source Recovery</h3>
             <p>
                 MergeVQ can be effectively implemented using the RandAR generative framework. The \(K\) quantized tokens and source
@@ -514,7 +508,8 @@
                     </tr>
                 </tbody>
             </table>
-            <img src="visualization.jpg" alt="Visualization of results">
+            <!-- 添加visualization.jpg图片 -->
+            <img src="fig/visualization.jpg" alt="Visualization of results">
         </section>
 
         <!-- 结论 -->
