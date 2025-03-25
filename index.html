@@ -95,11 +95,17 @@
         }
 
         img {
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
             margin: 30px 0;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
             border-radius: 8px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1);
         }
 
         table {
@@ -134,6 +140,38 @@
             font-size: 18px;
             margin-bottom: 20px;
         }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #E9F2FF;
+            border-radius: 0 0 8px 8px;
+            font-size: 16px;
+        }
+
+        footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .icon-container {
+            margin-top: 20px;
+        }
+
+        .icon-container a {
+            margin: 0 10px;
+        }
+
+        .icon-container img {
+            width: 30px;
+            height: 30px;
+            transform: scale(1);
+            box-shadow: none;
+        }
     </style>
     <!-- 引入 MathJax 库 -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -157,13 +195,24 @@
         <header>
             <h1>MergeVQ: A Unified Framework for Visual Generation and Representation with Token Merging and Quantization</h1>
             <p>
-                Siyuan Li<sup>1,3∗</sup> Luyuan Zhang<sup>2∗</sup> Zedong Wang<sup>4</sup> Juanxi Tian<sup>3</sup> Cheng Tan<sup>1,3</sup>
+                <strong>Siyuan Li<sup>1,3∗</sup></strong> <strong>Luyuan Zhang<sup>2∗</sup></strong> <strong>Zedong Wang<sup>4</sup></strong> <strong>Juanxi Tian<sup>3</sup></strong> Cheng Tan<sup>1,3</sup>
                 Zicheng Liu<sup>1,3</sup> Chang Yu<sup>3</sup> Qingsong Xie<sup>5†</sup> Haonan Lu<sup>5</sup> Haoqian Wang<sup>2</sup>
                 Zhen Lei<sup>6,7,8†</sup><br>
                 <sup>1</sup>Zhejiang University <sup>2</sup>Tsinghua University <sup>3</sup>Westlake University <sup>4</sup>The Hong Kong
                 University of Science and Technology <sup>5</sup>OPPO AI Center <sup>6</sup>CAIR, HKISI-CAS <sup>7</sup>Institute of
                 Automation, CASIA <sup>8</sup>University of Chinese Academy of Sciences
             </p>
+            <div class="icon-container">
+                <a href="https://github.com/ApexGen-X/MergeVQ" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+                </a>
+                <a href="#" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2668/2668674.png" alt="Hugging Face">
+                </a>
+                <a href="#" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1183/1183662.png" alt="arXiv">
+                </a>
+            </div>
         </header>
 
         <!-- 摘要 -->
@@ -230,7 +279,7 @@
         </section>
 
         <!-- 高效生成 -->
-        <section id="fig/efficient-generation">
+        <section id="efficient-generation">
             <h2>Efficient Generation</h2>
             <h3>4.1 MergeAR with KV Cache Compression</h3>
             <p>
@@ -513,17 +562,21 @@
         </section>
 
         <!-- 结论 -->
-        <section id="conclusion">
-            <h2>Conclusion</h2>
-            <p>
-                In summary, this paper presents MergeVQ, a unified framework that seamlessly integrates token merging and
-                quantization techniques for visual generation and representation learning. Our extensive experiments on ImageNet
-                demonstrate that MergeVQ can achieve significant performance gains in both self - supervised pre - training and
-                image generation tasks, while also accelerating the overall processes. Looking ahead, future work may explore
-                more advanced token merging strategies and further optimize the quantization module to enhance the performance
-                of the framework, paving the way for even greater advancements in the field of visual computing.
-            </p>
+        <section id="Citation">
+            <h2>Contributions</h2>
+            <p>Please feel free to raise issues or submit pull requests to contribute to our codebase.</p>
+            <h2>Citation</h2>
+            <pre>
+    @article{li2025mergevq,
+      title={MergeVQ: A Unified Framework for Visual Generation and Representation with Token Merging and Quantization},
+    }
+            </pre>
         </section>
+
+        <!-- 底部信息 -->
+        <footer>
+            <p>Website creator: <a href="https://tianshijing.github.io">Juanxi Tian</a></p>
+        </footer>
     </div>
 </body>
 
