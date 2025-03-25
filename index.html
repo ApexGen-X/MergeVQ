@@ -274,13 +274,15 @@
         <section id="abstract">
             <h2>Abstract</h2>
             <p>
-                In the realm of visual tasks, Masked Image Modeling (MIM) combined with Vector Quantization (VQ) has
-                witnessed remarkable achievements in self-supervised pretraining and image generation. However, a significant
-                hurdle persists: most existing methods grapple with simultaneously addressing two critical technical challenges.
-                To surmount these obstacles, we introduce MergeVQ, a groundbreaking unified framework that seamlessly integrates
-                token merging and VQ techniques. This innovative approach not only yields substantial performance gains in both
-                visual generation and representation learning but also accelerates the overall processes, marking a significant
-                advancement in the field.
+                Masked Image Modeling (MIM) with Vector Quantization (VQ) has achieved great success in both self-supervised pre-training and image generation. However,
+                most existing methods struggle to address the trade-off in the shared latent space for generation quality vs. representation learning and efficiency. 
+                To push the limits of this paradigm, we propose MergeVQ that incorporates token merging techniques into VQ-based generative models to bridge the gap 
+                between image generation and visual representation learning in a unified architecture. During pre-training, MergeVQ decouples top-k semantics from 
+                latent space with the token merge module after self-attention blocks in the encoder for subsequent Look-up Free Quantization (LFQ) and global alignment, 
+                and recovers their fine-grained details through cross-attention in the decoder for reconstruction. As for second-stage generation, we introduce MergeAR 
+                which performs KV Cache compression for efficient raster-order prediction. Extensive experiments on ImageNet verify that MergeVQ as an AR generative model 
+                achieves competitive performance in both visual representation learning and image generation tasks, while maintaining favorable token efficiency and inference speed. 
+                Code and model will be available at \url{https://apexgen-x.github.io/MergeVQ}.
             </p>
         </section>
 
