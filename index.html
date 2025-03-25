@@ -1,584 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MergeVQ: A Unified Framework for Visual Generation and Representation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto+Mono&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            line-height: 1.8;
-            color: #333;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
+            box-sizing: border-box;
         }
 
-       .container {
-            width: 80%;
-            max-width: 1200px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            margin: 20px 0;
-            border-radius: 8px;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #e1e8f0);
+            color: #2d3748;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation */
         nav {
-            background-color: #007BFF;
+            position: sticky;
+            top: 0;
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
             padding: 15px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            border-radius: 8px 8px 0 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 12px 12px;
         }
 
         nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
+            list-style: none;
+            text-align: center;
         }
 
         nav ul li {
-            display: inline;
-            margin: 0 20px;
+            display: inline-block;
+            margin: 0 25px;
         }
 
         nav ul li a {
-            color: white;
+            color: #fff;
             text-decoration: none;
+            font-weight: 600;
             font-size: 18px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         nav ul li a:hover {
-            color: #e0e0e0;
+            color: #dbeafe;
+            transform: translateY(-2px);
         }
 
+        /* Header */
         header {
             text-align: center;
-            padding: 80px 0;
-            background-color: #E9F2FF;
-            background-image: linear-gradient(to bottom, #E9F2FF, #d1e3ff);
-            border-radius: 0 0 8px 8px;
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, #dbeafe, #bfdbfe);
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         header h1 {
-            font-size: 42px;
+            font-size: 48px;
+            color: #1e40af;
             margin-bottom: 20px;
-            color: #007BFF;
+            animation: fadeInDown 1s ease;
         }
 
         header p {
             font-size: 18px;
-            color: #555;
+            color: #4b5563;
+            max-width: 800px;
+            margin: 0 auto 30px;
         }
 
+        .icon-container a {
+            margin: 0 15px;
+            color: #1e40af;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .icon-container a:hover {
+            color: #3b82f6;
+        }
+
+        /* Sections */
         section {
-            padding: 30px 0;
+            padding: 60px 20px;
+            background: #fff;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
         }
 
         h2 {
-            border-bottom: 3px solid #007BFF;
-            padding-bottom: 15px;
+            font-size: 36px;
+            color: #1e40af;
+            border-bottom: 4px solid #3b82f6;
+            padding-bottom: 10px;
             margin-bottom: 30px;
-            color: #007BFF;
-            font-size: 32px;
         }
 
         h3 {
-            color: #007BFF;
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 26px;
+            color: #1e40af;
+            margin-bottom: 20px;
         }
 
+        p {
+            font-size: 17px;
+            color: #4b5563;
+            margin-bottom: 20px;
+        }
+
+        /* Images */
         img {
             max-width: 90%;
             height: auto;
-            margin: 30px auto;
             display: block;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
-            transform: scale(0.9);
+            margin: 30px auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
         img:hover {
-            transform: scale(1);
+            transform: scale(1.02);
         }
 
+        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 30px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        th,
-        td {
-            border: 1px solid #ddd;
+        th, td {
             padding: 15px;
             text-align: left;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         th {
-            background-color: #f0f7ff;
-            color: #007BFF;
+            background: #dbeafe;
+            color: #1e40af;
             font-weight: 600;
         }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
         tr:hover {
-            background-color: #f0f7ff;
+            background: #f0f7ff;
         }
 
-        p {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
+        /* Footer */
         footer {
             text-align: center;
-            padding: 20px 0;
-            background-color: #E9F2FF;
-            border-radius: 0 0 8px 8px;
-            font-size: 16px;
+            padding: 30px;
+            background: #dbeafe;
+            border-radius: 12px;
+            margin-top: 20px;
         }
 
         footer a {
-            color: #007BFF;
+            color: #1e40af;
             text-decoration: none;
+            font-weight: 600;
         }
 
         footer a:hover {
             text-decoration: underline;
         }
 
-       .icon-container {
-            margin-top: 20px;
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-       .icon-container a {
-            margin: 0 10px;
-        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
 
-       .icon-container img {
-            width: 30px;
-            height: 30px;
-            transform: scale(1);
-            box-shadow: none;
+            header h1 {
+                font-size: 36px;
+            }
+
+            section {
+                padding: 40px 15px;
+            }
         }
     </style>
-    <!-- 引入 MathJax 库 -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </head>
-
 <body>
     <div class="container">
-        <!-- 导航栏 -->
+        <!-- Navigation -->
         <nav>
             <ul>
                 <li><a href="#introduction">Introduction</a></li>
                 <li><a href="#learning-paradigm">Learning Paradigm</a></li>
                 <li><a href="#efficient-generation">Efficient Generation</a></li>
                 <li><a href="#experiments">Experiments</a></li>
-                <li><a href="#conclusion">Conclusion</a></li>
+                <li><a href="#Citation">Citation</a></li>
             </ul>
         </nav>
 
-        <!-- 论文标题和作者 -->
+        <!-- Header -->
         <header>
-            <h1>MergeVQ: A Unified Framework for Visual Generation and Representation with Token Merging and Quantization</h1>
-            <p>
-                <strong>Siyuan Li<sup>1,3∗</sup></strong> <strong>Luyuan Zhang<sup>2∗</sup></strong> <strong>Zedong Wang<sup>4</sup></strong> <strong>Juanxi Tian<sup>3</sup></strong> Cheng Tan<sup>1,3</sup>
-                Zicheng Liu<sup>1,3</sup> Chang Yu<sup>3</sup> Qingsong Xie<sup>5†</sup> Haonan Lu<sup>5</sup> Haoqian Wang<sup>2</sup>
-                Zhen Lei<sup>6,7,8†</sup><br>
-                <sup>1</sup>Zhejiang University <sup>2</sup>Tsinghua University <sup>3</sup>Westlake University <sup>4</sup>The Hong Kong
-                University of Science and Technology <sup>5</sup>OPPO AI Center <sup>6</sup>CAIR, HKISI-CAS <sup>7</sup>Institute of
-                Automation, CASIA <sup>8</sup>University of Chinese Academy of Sciences
-            </p>
+            <h1>MergeVQ: A Unified Framework for Visual Generation and Representation</h1>
+            <p><strong>Siyuan Li<sup>1,3∗</sup>, Luyuan Zhang<sup>2∗</sup>, Zedong Wang<sup>4</sup>, Juanxi Tian<sup>3</sup>, Cheng Tan<sup>1,3</sup>, Zicheng Liu<sup>1,3</sup>, Chang Yu<sup>3</sup>, Qingsong Xie<sup>5†</sup>, Haonan Lu<sup>5</sup>, Haoqian Wang<sup>2</sup>, Zhen Lei<sup>6,7,8†</sup></strong><br>
+            <sup>1</sup>Zhejiang University, <sup>2</sup>Tsinghua University, <sup>3</sup>Westlake University, <sup>4</sup>HKUST, <sup>5</sup>OPPO AI Center, <sup>6</sup>CAIR, HKISI-CAS, <sup>7</sup>Institute of Automation, CASIA, <sup>8</sup>UCAS</p>
             <div class="icon-container">
-                <a href="https://github.com/ApexGen-X/MergeVQ" target="_blank">
-                    GitHub
-                </a>
-                <a href="" target="_blank">
-                    Huggingface
-                </a>
-                <a href="" target="_blank">
-                    arXiv
-                </a>
+                <a href="https://github.com/ApexGen-X/MergeVQ" target="_blank">GitHub</a>
+                <a href="#" target="_blank">Huggingface</a>
+                <a href="#" target="_blank">arXiv</a>
             </div>
         </header>
 
-        <!-- 摘要 -->
+        <!-- Abstract -->
         <section id="abstract">
             <h2>Abstract</h2>
-            <p>
-                In the realm of visual tasks, Masked Image Modeling (MIM) combined with Vector Quantization (VQ) has
-                witnessed remarkable achievements in self-supervised pretraining and image generation. However, a significant
-                hurdle persists: most existing methods grapple with simultaneously addressing two critical technical challenges.
-                To surmount these obstacles, we introduce MergeVQ, a groundbreaking unified framework that seamlessly integrates
-                token merging and VQ techniques. This innovative approach not only yields substantial performance gains in both
-                visual generation and representation learning but also accelerates the overall processes, marking a significant
-                advancement in the field.
-            </p>
+            <p>In the realm of visual tasks, Masked Image Modeling (MIM) combined with Vector Quantization (VQ) has witnessed remarkable achievements in self-supervised pretraining and image generation. However, a significant hurdle persists: most existing methods grapple with simultaneously addressing two critical technical challenges. To surmount these obstacles, we introduce MergeVQ, a groundbreaking unified framework that seamlessly integrates token merging and VQ techniques.</p>
         </section>
 
-        <!-- 介绍 -->
+        <!-- Introduction -->
         <section id="introduction">
             <h2>Introduction</h2>
-            <p>
-                Vector Quantization (VQ) has emerged as a widely adopted technique in visual tasks. Nevertheless, existing
-                methods often encounter challenges that impede their effectiveness. In response, we present MergeVQ, a
-                revolutionary solution designed to overcome these limitations. Our approach recognizes the complementary nature
-                of representation learning and generation, and it leverages this synergy by decoupling and recovering semantics
-                during the encoding and reconstruction processes.
-            </p>
-            <!-- 添加mergevq_intro.jpg图片 -->
-            <img src="fig/mergevq_intro.jpg" alt="MergeVQ introduction">
-            <p>
-                The contributions of MergeVQ are multifaceted. Firstly, it effectively decouples semantic tokens and the source
-                matrix, enabling a more refined and efficient representation of visual data. Secondly, it addresses the
-                longstanding challenges associated with VQ training, leading to improved stability and performance. Finally,
-                MergeVQ achieves state-of-the-art results in both visual generation and representation learning tasks,
-                demonstrating its superiority over existing methods.
-            </p>
+            <p>Vector Quantization (VQ) has emerged as a widely adopted technique in visual tasks. MergeVQ leverages this synergy by decoupling and recovering semantics during the encoding and reconstruction processes.</p>
+            <img src="fig/mergevq_intro.jpg" alt="MergeVQ Introduction">
         </section>
 
-        <!-- 学习范式 -->
+        <!-- Learning Paradigm -->
         <section id="learning-paradigm">
             <h2>Learning Paradigm</h2>
-            <h3>3.1 MergeVQ Framework</h3>
-            <p>
-                The MergeVQ framework is a comprehensive solution that encompasses token merge encoding, quantization, token
-                recovery, and reconstruction. Each component plays a crucial role in enabling efficient and effective visual
-                generation and representation learning.
-            </p>
-            <p>
-                Token Merge Encoding: Given an image \(X \in \mathbb{R}^{H \times W \times 3}\), we employ a two - stage downsampling encoder \(\varepsilon\). First, a CNN layer \(\varepsilon_{1}\) extracts features, producing a feature map \(Z \in \mathbb{R}^{\frac{H}{f} \times \frac{W}{f} \times d}\), where \(f\) is the downsampling factor and \(d\) denotes the channel number. The feature \(Z\) is then flattened into an \(L\) - length token sequence \(Z_{L} \in \mathbb{R}^{L \times d}\) as \(Z_{L}=\mathcal{E}_{1}(X)\). Subsequently, we employ attention with the merging operation, denoted as \(\varepsilon_{2}\), for second - stage extraction. During this process, we obtain a shorter sequence \(Z_{K} \in \mathbb{R}^{K \times d}\) along with its source matrix \(S \in \mathbb{R}^{K \times L}\) that preserves the spatial relationships of the sequence. This process is expressed as \(Z_{K}, S=\mathcal{E}_{2}(Z_{L})\). To ensure that \(Z_{K}\) possesses rich semantics, we concurrently impose global alignment on \(Z_{K}\).
-            </p>
-            <p>
-                Quantization: We utilize \(LFQ\) as MergeVQ’s quantization module to minimize the loss of details. Specifically, the codebook is reduced to an integer set and can be denoted as: \(C = \times_{i = 1}^{N} \{-1, 1\}\) with \(|C| = 2^{N}\). Thus, the quantization can be summarized as follows: \(z_{K i} = \text{sign}(z_{K i}) = -1 \cdot \mathbb{I}(z_{K i} < 0) + \mathbb{I}(z_{K i} > 0)\), where \(z_{K i}\) denotes the \(i\) - th vector in \(K\) semantic tokens \(Z_{K}\). Then the index of the quantized feature \(z_{m i}\) is formulated as \(\text{Index}(z_{K i}) = \sum_{j = 1}^{N} 2^{k - 1} \cdot \mathbb{I}(z_{K i j} > 0)\). Finally, we obtain the quantized semantic tokens, denoted as \(Z_{K q}\): \(Z_{K q}=\mathcal{Q}(Z_{K}, \mathcal{C})\).
-            </p>
-            <p>
-                Token Recovery and Reconstruction: We first perform token - level reconstruction with the recovery module \(R(\cdot, \cdot)\) and source matrix \(S\), which yields a new \(L\) - length \(\hat{Z}_{L}\) as \(\hat{Z}_{L}=\mathcal{R}(Z_{q K}, S)\). This sequence is then fed into the decoder \(D\) for pixel - level reconstruction, which can be described as \(\hat{X}=\mathcal{D}(\hat{Z}_{L})\).
-            </p>
-            <h3>3.2 Harmonize Reconstruction and Representation</h3>
-            <p>
-                Inspired by Masked Image Modeling in representation learning, we employ Token Merge and Source Recovery to
-                seamlessly integrate representation learning into the MergeVQ framework. Additionally, we impose global alignment
-                constraints to further enhance the performance and stability of the model.
-            </p>
-            <!-- 添加fig/mergevq_framework.jpg图片 -->
-            <img src="fig/mergevq_framework.jpg" alt="Overview of MergeVQ framework">
+            <h3>MergeVQ Framework</h3>
+            <p>The MergeVQ framework encompasses token merge encoding, quantization, token recovery, and reconstruction.</p>
+            <img src="fig/mergevq_framework.jpg" alt="MergeVQ Framework">
         </section>
 
-        <!-- 高效生成 -->
+        <!-- Efficient Generation -->
         <section id="efficient-generation">
             <h2>Efficient Generation</h2>
-            <h3>4.1 MergeAR with KV Cache Compression</h3>
-            <p>
-                To achieve efficient autoregressive generation, we introduce MergeAR. This innovative approach leverages token
-                sparsity and a position - recording system to significantly accelerate the generation process. During training,
-                we sample a merge ratio \(r\), introduce a Merge Instruction Token \(M\), and construct a causal mask. In inference,
-                we utilize a KV cache to prune repeated tokens, further improving the efficiency of the model.
-            </p>
-            <!-- 添加mergeAR_pipeline.jpg图片 -->
-            <img src="fig/mergeAR_pipeline.jpg" alt="Illustration of MergeAR pipeline">
-            <h3>4.2 Randomized Auto - regressive with Source Recovery</h3>
-            <p>
-                MergeVQ can be effectively implemented using the RandAR generative framework. The \(K\) quantized tokens and source
-                matrix are utilized for both training and generation. We employ the source recovery model and decoder to recover
-                tokens, ensuring accurate and efficient generation of visual data.
-            </p>
+            <h3>MergeAR with KV Cache Compression</h3>
+            <p>MergeAR leverages token sparsity and a position-recording system to accelerate generation.</p>
+            <img src="fig/mergeAR_pipeline.jpg" alt="MergeAR Pipeline">
         </section>
 
-        <!-- 实验 -->
+        <!-- Experiments -->
         <section id="experiments">
             <h2>Experiments</h2>
-            <h3>5.1 Implementation Details</h3>
-            <p>
-                We offer three distinct versions of MergeVQ to cater to different application scenarios: MergeVQ (G) for pure
-                generation, MergeVQ (G + R) for both generation and representation, and MergeVQ (R) for representation learning
-                only. Each version is equipped with encoders of different architectures and parameters, tailored to specific
-                requirements. We utilize the AdamW optimizer and various loss functions for training, ensuring optimal performance
-                of the model. The visual generator is based on the LlaMA - based architecture and is trained with specific settings
-                to achieve high - quality visual generation.
-            </p>
-            <h3>5.2 Self - supervised Pre - training</h3>
-            <p>
-                To evaluate the performance of self - supervised pre - trained models, we conducted linear probing and end - to - end
-                fine - tuning experiments on ImageNet - 1K. The results, presented in Table 1, provide valuable insights into the
-                effectiveness of MergeVQ compared to existing methods.
-            </p>
             <table>
                 <thead>
-                    <tr>
-                        <th>Support Tasks</th>
-                        <th>Method</th>
-                        <th>Date</th>
-                        <th>Align. Target</th>
-                        <th>Rec. Target</th>
-                        <th>Epochs</th>
-                        <th>Encoder Type</th>
-                        <th>#Param</th>
-                        <th>#Tokens</th>
-                        <th>Accuracy (Lin.)</th>
-                        <th>Accuracy (FT)</th>
-                    </tr>
+                    <tr><th>Method</th><th>FID ↓</th><th>IS ↑</th><th>Speed (imgs/s)</th></tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Contrastive Pre - training</td>
-                        <td>BYOL [22]</td>
-                        <td>NeurIPS’2020</td>
-                        <td>MSE</td>
-                        <td>✗</td>
-                        <td>800</td>
-                        <td>R50 - W2</td>
-                        <td>94M</td>
-                        <td>7×7</td>
-                        <td>75.6</td>
-                        <td>−</td>
-                    </tr>
-                    <tr>
-                        <td>Contrastive Pre - training</td>
-                        <td>MoCoV3 [12]</td>
-                        <td>ICCV’2021</td>
-                        <td>InfoNCE</td>
-                        <td>✗</td>
-                        <td>300</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>76.7</td>
-                        <td>83.2</td>
-                    </tr>
-                    <tr>
-                        <td>Contrastive Pre - training</td>
-                        <td>DINO ‡ [9]</td>
-                        <td>ICCV’2021</td>
-                        <td>CE</td>
-                        <td>✗</td>
-                        <td>300</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>78.2</td>
-                        <td>83.6</td>
-                    </tr>
-                    <tr>
-                        <td>Contrastive Pre - training</td>
-                        <td>DINOv2 ‡ [46]</td>
-                        <td>TMLR’2024</td>
-                        <td>CE</td>
-                        <td>✗</td>
-                        <td>1000</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>84.5</td>
-                        <td>85.7</td>
-                    </tr>
-                    <tr>
-                        <td>MIM Pre - training</td>
-                        <td>BEiT [3]</td>
-                        <td>ICLR’2022</td>
-                        <td>✗</td>
-                        <td>DALLE</td>
-                        <td>800</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>56.7</td>
-                        <td>83.2</td>
-                    </tr>
-                    <tr>
-                        <td>MIM Pre - training</td>
-                        <td>iBOT ‡ [75]</td>
-                        <td>ICLR’2022</td>
-                        <td>CE</td>
-                        <td>EMA</td>
-                        <td>800</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>76.0</td>
-                        <td>84.0</td>
-                    </tr>
-                    <tr>
-                        <td>MIM Pre - training</td>
-                        <td>MAE [24]</td>
-                        <td>CVPR’2022</td>
-                        <td>✗</td>
-                        <td>RGB</td>
-                        <td>1600</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>68.0</td>
-                        <td>83.6</td>
-                    </tr>
-                    <tr>
-                        <td>MIM Pre - training</td>
-                        <td>SimMIM [62]</td>
-                        <td>CVPR’2022</td>
-                        <td>✗</td>
-                        <td>RGB</td>
-                        <td>800</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>67.9</td>
-                        <td>83.8</td>
-                    </tr>
-                    <tr>
-                        <td>MIM Pre - training</td>
-                        <td>CAE [13]</td>
-                        <td>IJCV’2023</td>
-                        <td>✗</td>
-                        <td>DALLE</td>
-                        <td>1600</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>70.4</td>
-                        <td>83.6</td>
-                    </tr>
-                    <tr>
-                        <td>MIM Pre - training</td>
-                        <td>PeCo [14]</td>
-                        <td>AAAI’2023</td>
-                        <td>✗</td>
-                        <td>VQVAE</td>
-                        <td>800</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>72.3</td>
-                        <td>83.9</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="3">Ours</td>
-                        <td>MergeVQ (R)</td>
-                        <td>-</td>
-                        <td>CE</td>
-                        <td>LFQ</td>
-                        <td>800</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>80.1</td>
-                        <td>85.1</td>
-                    </tr>
-                    <tr>
-                        <td>MergeVQ (G+R)</td>
-                        <td>-</td>
-                        <td>CE</td>
-                        <td>LFQ</td>
-                        <td>800</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>79.8</td>
-                        <td>84.9</td>
-                    </tr>
-                    <tr>
-                        <td>MergeVQ (G)</td>
-                        <td>-</td>
-                        <td>✗</td>
-                        <td>LFQ</td>
-                        <td>800</td>
-                        <td>ViT - B</td>
-                        <td>86M</td>
-                        <td>196</td>
-                        <td>79.2</td>
-                        <td>84.3</td>
-                    </tr>
+                    <tr><td>MergeVQ (G)</td><td>7.89</td><td>14.23</td><td>3.0</td></tr>
+                    <tr><td>StableDiffusion</td><td>11.32</td><td>12.04</td><td>0.5</td></tr>
                 </tbody>
             </table>
-            <h3>5.3 Image Generation</h3>
-            <p>
-                We conducted comprehensive image generation experiments to assess the performance of MergeVQ. By comparing it
-                with several state - of - the - art methods in terms of FID and IS scores, we aimed to provide a comprehensive
-                evaluation of its effectiveness. The results, presented in Table 2, highlight the superior performance of
-                MergeVQ in image generation tasks.
-            </p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Method</th>
-                        <th>FID ↓</th>
-                        <th>IS ↑</th>
-                        <th>Speed (imgs/s)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>StableDiffusion [61]</td>
-                        <td>11.32</td>
-                        <td>12.04</td>
-                        <td>0.5</td>
-                    </tr>
-                    <tr>
-                        <td>OpenMAGVIT2 [42]</td>
-                        <td>8.97</td>
-                        <td>13.56</td>
-                        <td>0.3</td>
-                    </tr>
-                    <tr>
-                        <td>MaskGiT [10]</td>
-                        <td>9.12</td>
-                        <td>13.21</td>
-                        <td>1.2</td>
-                    </tr>
-                    <tr>
-                        <td>ToMe + MaskGiT [6]</td>
-                        <td>9.34</td>
-                        <td>13.12</td>
-                        <td>2.5</td>
-                    </tr>
-                    <tr>
-                        <td>MergeVQ (G)</td>
-                        <td>7.89</td>
-                        <td>14.23</td>
-                        <td>3.0</td>
-                    </tr>
-                    <tr>
-                        <td>MergeVQ (G+R)</td>
-                        <td>7.95</td>
-                        <td>14.18</td>
-                        <td>2.8</td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- 添加visualization.jpg图片 -->
-            <img src="fig/visualization.jpg" alt="Visualization of results">
+            <img src="fig/visualization.jpg" alt="Visualization">
         </section>
 
-        <!-- 结论 -->
+        <!-- Citation -->
         <section id="Citation">
-            <h2>Contributions</h2>
-            <p>Please feel free to raise issues or submit pull requests to contribute to our codebase.</p>
             <h2>Citation</h2>
-            <pre>
-    @article{li2025mergevq,
-      title={MergeVQ: A Unified Framework for Visual Generation and Representation with Token Merging and Quantization},
-    }
-            </pre>
+            <pre>@article{li2025mergevq, title={MergeVQ: A Unified Framework...}}</pre>
         </section>
 
-        <!-- 底部信息 -->
+        <!-- Footer -->
         <footer>
-            <p>Website creator: <a href="https://tianshijing.github.io">Juanxi Tian</a></p>
+            <p>Website by: <a href="https://tianshijing.github.io">Juanxi Tian</a></p>
         </footer>
     </div>
 </body>
-
-</html>    
+</html>
