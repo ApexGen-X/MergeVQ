@@ -10,6 +10,8 @@
 
 <sup>*</sup> Equal Contributions. <sup>†</sup> Corresponding Authors.
 
+IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2025
+
 </div>
 
 <p align="center">
