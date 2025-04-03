@@ -29,7 +29,7 @@ Masked Image Modeling (MIM) with Vector Quantization (VQ) has achieved great suc
 To push the limits of this paradigm, we propose MergeVQ, which incorporates token merging techniques into VQ-based autoregressive generative models to bridge the gap between visual generation and representation learning in a unified architecture. During pre-training, MergeVQ decouples top-k semantics from latent space with a token merge module after self-attention blocks in the encoder for subsequent Look-up Free Quantization (LFQ) and global alignment and recovers their fine-grained details through cross-attention in the decoder for reconstruction. As for the second-stage generation, we introduce MergeAR, which performs KV Cache compression for efficient raster-order prediction.
 Experiments on ImageNet verify that MergeVQ as an AR generative model achieves competitive performance in both representation learning and image generation tasks while maintaining favorable token efficiency and inference speed.
 
-HuggingFace: [https://huggingface.co/papers](https://huggingface.co/papers/2504.00999) ("#1 Paper of the day" ⬆️)
+🤗 HuggingFace: [https://huggingface.co/papers](https://huggingface.co/papers/2504.00999) ("#1 Paper of the day" ⬆️)
 ## Catalog
 
 We plan to release implementations of MergeVQ in a few months (before CVPR2025 taking place). Please watch us for the latest release and welcome to open issues for discussion!
