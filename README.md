@@ -155,13 +155,13 @@ bash scripts/evaluation/evaluation_256.sh
 **Tokenizer**
 | Method | Type | #Tokens | Train Size | Epoch | Codebook Size | rFID (Full) | rFID (Merge) | Checkpoint |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Open-MAGVIT2 | 2D | $16^2$ | $256^2$ | 270 | $2^{18}$ | 1.53 (256) | - | [ckpt](https://huggingface.co/TencentARC/Open-MAGVIT2/blob/main/imagenet_256_L.ckpt) |
-| MergeVQ-d32 (G) | 1D | [256, 1024] | $256^2$ | 200 | $2^{18}$ | 0.48 (1024) | 0.80 (256) | TODO |
-| MergeVQ-d64 (G) | 1D | [256, 1024] | $256^2$ | 100 | $2^{18}$ | 0.49 (1024) | 0.91 (256) | TODO |
-| MergeVQ-d64 (G) | 1D | [256, 1024] | $256^2$ | 200 | $2^{18}$ | 0.43 (1024) | 0.83 (256) | TODO |
-| MergeVQ-d32 (G+R) | 1D | [144, 256] | $256^2$ | 270 | $2^{18}$ | 1.27 (256) | 1.74 (144) | TODO |
-| MergeVQ-d64 (G+R) | 1D | [144, 256] | $256^2$ | 270 | $2^{18}$ | 1.12 (256) | 1.48 (144) | TODO |
-| MergeVQ-d96 (G+R) | 1D | [144, 256] | $256^2$ | 200 | $2^{18}$ | 1.03 (256) | 1.33 (144) | TODO |
+| Open-MAGVIT2 | 2D | $16^2$ | $256^2$ | 270 | 2^18 | 1.53 (256) | - | [ckpt](https://huggingface.co/TencentARC/Open-MAGVIT2/blob/main/imagenet_256_L.ckpt) |
+| MergeVQ-d32 (G) | 1D | [256, 1024] | $256^2$ | 200 | 2^18 | 0.48 (1024) | 0.80 (256) | TODO |
+| MergeVQ-d64 (G) | 1D | [256, 1024] | $256^2$ | 100 | 2^18 | 0.49 (1024) | 0.91 (256) | TODO |
+| MergeVQ-d64 (G) | 1D | [256, 1024] | $256^2$ | 200 | 2^18 | 0.43 (1024) | 0.83 (256) | TODO |
+| MergeVQ-d32 (G+R) | 1D | [144, 256] | $256^2$ | 270 | 2^18 | 1.27 (256) | 1.74 (144) | TODO |
+| MergeVQ-d64 (G+R) | 1D | [144, 256] | $256^2$ | 270 | 2^18 | 1.12 (256) | 1.48 (144) | TODO |
+| MergeVQ-d96 (G+R) | 1D | [144, 256] | $256^2$ | 200 | 2^18 | 1.03 (256) | 1.33 (144) | TODO |
 
 ### Stage II: Training of Auto-Regressive Models
 

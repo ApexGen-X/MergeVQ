@@ -271,15 +271,16 @@
                 <strong>Siyuan Li<sup>1,3∗</sup></strong> <strong>Luyuan Zhang<sup>2∗</sup></strong> <strong>Zedong Wang<sup>4</sup></strong> <strong>Juanxi Tian<sup>3</sup></strong> Cheng Tan<sup>1,3</sup>
                 Zicheng Liu<sup>1,3</sup> Chang Yu<sup>3</sup> Qingsong Xie<sup>5†</sup> Haonan Lu<sup>5</sup> Haoqian Wang<sup>2</sup>
                 Zhen Lei<sup>6,7,8†</sup><br>
-                <sup>1</sup>Zhejiang University <sup>2</sup>Tsinghua University <sup>3</sup>Westlake University <sup>4</sup>HKUST <sup>5</sup>OPPO AI Center <sup>6</sup>CAIR, HKISI-CAS <sup>7</sup>MAIS CASIA <sup>8</sup>UCAS
+                <sup>1</sup>Zhejiang University <sup>2</sup>Tsinghua University <sup>3</sup>Westlake University <sup>4</sup>HKUST <sup>5</sup>OPPO AI Center <sup>6</sup>CAIR, HKISI-CAS <sup>7</sup>MAIS CASIA <sup>8</sup>University of Chinese Academy of Sciences
             </p>
             <p>
                 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2025
             </p>
             <div class="icon-container">
-                <a href="https://apexgen-x.github.io/MergeVQ" target="_blank">Code</a>
-                <a href="https://arxiv.org/abs/2504.00999" target="_blank">Paper</a>
-                <a href="https://huggingface.co/papers/2504.00999" target="_blank">HF</a>
+                <a href="https://github.com/ApexGen-X/MergeVQ" target="_blank">Code</a>
+                <a href="https://arxiv.org/abs/2504.00999" target="_blank">arXiv</a>
+                <a href="https://huggingface.co/papers/2504.00999" target="_blank">HF Paper</a>
+                <a href="https://github.com/ApexGen-X/MergeVQ/tree/main/fig/mergevq_cvpr25_poster.png" target="_blank">Poster</a>
             </div>
         </header>
 
@@ -289,6 +290,7 @@
             <p>
                 Masked Image Modeling (MIM) with Vector Quantization (VQ) has achieved great success in both self - supervised pre - training and image generation. However, most existing methods struggle to address the trade - off in shared latent space for generation quality vs. representation learning and efficiency. To push the limits of this paradigm, we propose MergeVQ, which incorporates token merging techniques into VQ - based autoregressive generative models to bridge the gap between visual generation and representation learning in a unified architecture. During pretraining, MergeVQ decouples top - k semantics from latent space with a token merge module after self - attention blocks in the encoder for subsequent Look - up Free Quantization (LFQ) and global alignment and recovers their fine - grained details through cross - attention in the decoder for reconstruction. As for the second - stage generation, we introduce MergeAR, which performs KV Cache compression for efficient raster - order prediction. Experiments on ImageNet verify that MergeVQ as an AR generative model achieves competitive performance in both representation learning and image generation tasks while maintaining favorable token efficiency and inference speed.
             </p>
+            <img src="fig/mergevq_cvpr25_poster.png" alt="Poster MergeVQ (CVPR'2025)">
         </section>
 
         <!-- Introduction -->
